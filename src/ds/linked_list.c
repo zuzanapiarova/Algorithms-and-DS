@@ -168,8 +168,8 @@ s_list	*ft_lstmap(s_list *lst, void *(*f)(void*), void (*del)(void*))
 // 		int *content = malloc(sizeof(int));  // Allocate space for the integer
 // 		if (content == NULL)
 // 		{
-// 			return 1;  // Handle memory allocation failure
 // 			ft_lstclear(&lst);
+// 			return 1;  // Handle memory allocation failure
 // 		}
 // 		*content = i;  // Assign the value to the new integer
 // 		ft_lstadd_front(&lst, ft_lstnew((void *)content));  // Add the new node to the front of the list

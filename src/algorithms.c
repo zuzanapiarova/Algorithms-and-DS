@@ -10,8 +10,8 @@ int main(void)
 		int *content = malloc(sizeof(int));  // Allocate space for the integer
 		if (content == NULL)
 		{
-			return 1;  // Handle memory allocation failure
 			ft_dlstclear(&lst);
+			return 1;  // Handle memory allocation failure
 		}
 		*content = i;  // Assign the value to the new integer
 		dlst_add_back(&lst, dlst_create_new((void *)content));  // Add the new node to the front of the list

@@ -6,13 +6,13 @@
 #include "stdio.h"
 
 // SINGLY LINKED LIST
-typedef struct s_vars
-{
-	char		**arr;
-	size_t		i;
-	size_t		j;
-	size_t		start_i;
-}				t_vars;
+// typedef struct s_vars
+// {
+// 	char		**arr;
+// 	size_t		i;
+// 	size_t		j;
+// 	size_t		start_i;
+// }				t_vars;
 
 typedef struct s_list
 {
@@ -38,13 +38,12 @@ void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 t_list	*ft_lstnew(void *content);
 int		ft_lstsize(t_list *lst);
-void	ft_lstclear(t_list **lst, void (*del)(void*));
+void	ft_lstclear(t_list **lst);
 void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void*));
-
-void print_stack(t_stack *stack);
+void	print_list(t_list *head);
 
 // DOUBLY LINKED LIST (CHAIN)
 

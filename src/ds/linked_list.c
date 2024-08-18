@@ -1,67 +1,112 @@
 #include "algorithms.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
-{
-	t_list	*el;
+// NODE = data type that can stand on its own somewhere in memory
+// we link them into a list by the 'next' pointer
+// HEAD = first element of the list, keep it stored somewhere to not lose it as we iterate over the list
+// set the next pointer of the last node to NULL so we know where it ends, just like setting '\0' at the end of strings
+// to change the order or add a new node we just rearrange the pointers around it
 
-	if (!lst || !new)
-		return ;
-	if (*lst == NULL)
-		*lst = new;
+//        (32 | o )   (8 | o )   (19 | o )   NULL
+//   head__/    \____/     \____/      \____/
+//                                              __________
+//                                             /          \
+//        (32 | o )   (8 | o )   (19 | o )   NULL    (10 | o )
+//   head__/    \____/     \____/      \_____________/
+
+
+// -- UTILS ---------------------------------------------------------
+
+t_list	*ft_lstnew(void *content) // void pointer because we want to be able to store any type of data in the content of the node
+{
+	t_list	*result;
+
+	result = (t_list *)malloc(sizeof(t_list));
+	if (!result)
+		return (NULL);
+	if (content == 0)
+	{
+		result->content = 0;
+		result->next = 0;
+	}
 	else
 	{
-		el = *lst;
-		while (el->next != NULL)
-			el = el->next;
-		el->next = new;
+		result->content = content;
+		result->next = NULL;
 	}
+	return (result);
 }
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+int	ft_lstsize(t_list *lst)
 {
-	if (lst != NULL && new != NULL)
+	int	count;
+
+	count = 0;
+	while (lst)
 	{
-		new->next = *lst;
-		*lst = new;
+		count++;
+		lst = lst->next;
 	}
+	return (count);
 }
 
-void print_stack(t_stack *stack)
+void	ft_lstadd_front(t_list **head, t_list *new)
 {
-	printf("stack %s, size: %d\n", stack->name, stack->size);
-	t_node *current = stack->head;
-	printf("-------------\n");
-	while (current)
+	if (head != NULL && new != NULL)
 	{
-		printf("%d\n", current->value);
-		current = current->next;
+		new->next = *head;
+		*head = new; // must update the head pointer to new head so the new head is kept and updated at memory
 	}
-	printf("-------------\n");
 }
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+void	ft_lstadd_back(t_list **head, t_list *new)
 {
-	t_list	*current_el;
 	t_list	*temp;
 
-	if (!lst || !del)
+	if (!head || !new)
 		return ;
-	current_el = *lst;
-	while (current_el)
+	if (*head == NULL)
+		*head = new;
+	else
 	{
-		temp = current_el->next;
-		del(current_el->content);
-		free(current_el);
-		current_el = temp;
+		temp = *head;
+		while (temp->next != NULL)
+			temp = temp->next;
+		temp->next = new;
 	}
-	*lst = NULL;
 }
 
+void print_list(t_list *head)
+{
+	t_list *current = head;
+	while (current)
+	{
+		write(1, current->content, 10);
+		current = current->next;
+	}
+}
 
 void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
 	del(lst->content);
 	free(lst);
+}
+
+void	ft_lstclear(t_list **head)
+{
+	t_list	*current;
+	t_list	*next_node;
+
+	if (!head)
+		return ;
+	current = *head;
+	while (current)
+	{
+		next_node = current->next;
+		free(current->content); // we free the content first because we passed it in as pointer created by allocating memory, so we have to free it
+		free(current); // only after content is freed we can free the node itself
+		current = next_node;
+	}
+	*head = NULL;
 }
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
@@ -104,37 +149,3 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void*))
 	}
 	return (result);
 }
-
-t_list	*ft_lstnew(void *content)
-{
-	t_list	*result;
-
-	result = (t_list *)malloc(sizeof(t_list));
-	if (!result)
-		return (NULL);
-	if (content == 0)
-	{
-		result->content = 0;
-		result->next = 0;
-	}
-	else
-	{
-		result->content = content;
-		result->next = NULL;
-	}
-	return (result);
-}
-
-int	ft_lstsize(t_list *lst)
-{
-	int	count;
-
-	count = 0;
-	while (lst)
-	{
-		count++;
-		lst = lst->next;
-	}
-	return (count);
-}
-

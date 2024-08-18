@@ -16,10 +16,7 @@ int main(void)
 		*content = i;  // Assign the value to the new integer
 		ft_lstadd_front(&lst, ft_lstnew((void *)content));  // Add the new node to the front of the list
 	}
-
-	printf("List size: %d\n", ft_lstsize(lst) + 1);
-
+	printf("List size: %d\n", ft_lstsize(lst));
+	print_list(lst);
 	ft_lstclear(&lst);  // Free all nodes and their content
-
-	return 0;
 }

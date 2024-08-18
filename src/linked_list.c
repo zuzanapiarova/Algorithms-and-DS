@@ -26,18 +26,6 @@ void	ft_lstadd_front(t_list **lst, t_list *new)
 	}
 }
 
-t_node	*ft_lstnew(int value)
-{
-	t_node	*result;
-
-	result = (t_node *)malloc(sizeof(t_node));
-	if (!result)
-		return (NULL);
-	result->value = value;
-	result->next = NULL;
-	return (result);
-}
-
 void print_stack(t_stack *stack)
 {
 	printf("stack %s, size: %d\n", stack->name, stack->size);

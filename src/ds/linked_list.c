@@ -16,11 +16,11 @@
 
 // -- UTILS ---------------------------------------------------------
 
-t_list	*ft_lstnew(void *content) // void pointer because we want to be able to store any type of data in the content of the node
+s_list	*ft_lstnew(void *content) // void pointer because we want to be able to store any type of data in the content of the node
 {
-	t_list	*result;
+	s_list	*result;
 
-	result = (t_list *)malloc(sizeof(t_list));
+	result = (s_list *)malloc(sizeof(s_list));
 	if (!result)
 		return (NULL);
 	if (content == 0)
@@ -36,7 +36,7 @@ t_list	*ft_lstnew(void *content) // void pointer because we want to be able to s
 	return (result);
 }
 
-int	ft_lstsize(t_list *lst)
+int	ft_lstsize(s_list *lst)
 {
 	int	count;
 
@@ -49,35 +49,40 @@ int	ft_lstsize(t_list *lst)
 	return (count);
 }
 
-void	ft_lstadd_front(t_list **head, t_list *new)
+void	ft_lstadd_front(s_list **head, s_list *new)
 {
-	if (head != NULL && new != NULL)
+	if (!new)
+		return ;
+	if (!head)
 	{
-		new->next = *head;
-		*head = new; // must update the head pointer to new head so the new head is kept and updated at memory
+		*head = new;
+		return ;
 	}
+	new->next = *head;
+	*head = new; // must update the head pointer to new head so the new head is kept and updated at memory
 }
 
-void	ft_lstadd_back(t_list **head, t_list *new)
+void	ft_lstadd_back(s_list **head, s_list *new)
 {
-	t_list	*temp;
+	s_list	*temp;
 
-	if (!head || !new)
+	if (!new)
 		return ;
 	if (*head == NULL)
-		*head = new;
-	else
 	{
-		temp = *head;
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = new;
+		*head = new;
+		return ;
 	}
+	temp = *head;
+	while (temp->next != NULL)
+		temp = temp->next;
+	temp->next = new; // always set the new as the head at the end when inserting to front
+	new->next = NULL;
 }
 
-void print_list(t_list *head)
+void print_list(s_list *head)
 {
-	t_list *current = head;
+	s_list *current = head;
 
 	while (current)
 	{
@@ -86,16 +91,16 @@ void print_list(t_list *head)
 	}
 }
 
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+void	ft_lstdelone(s_list *lst, void (*del)(void*))
 {
 	del(lst->content);
 	free(lst);
 }
 
-void	ft_lstclear(t_list **head)
+void	ft_lstclear(s_list **head)
 {
-	t_list	*current;
-	t_list	*next_node;
+	s_list	*current;
+	s_list	*next_node;
 
 	if (!head)
 		return ;
@@ -110,7 +115,7 @@ void	ft_lstclear(t_list **head)
 	*head = NULL;
 }
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+void	ft_lstiter(s_list *lst, void (*f)(void *))
 {
 	if (!lst || !f)
 		return ;
@@ -121,7 +126,7 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 	}
 }
 
-t_list	*ft_lstlast(t_list *lst)
+s_list	*ft_lstlast(s_list *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -130,10 +135,10 @@ t_list	*ft_lstlast(t_list *lst)
 	return (lst);
 }
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void*))
+s_list	*ft_lstmap(s_list *lst, void *(*f)(void*), void (*del)(void*))
 {
-	t_list	*result;
-	t_list	*temp;
+	s_list	*result;
+	s_list	*temp;
 
 	result = NULL;
 	while (lst)
@@ -156,7 +161,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void*))
 // int main(void)
 // {
 // 	int i = 0;
-// 	t_list *lst = NULL; // initialize the list
+// 	s_list *lst = NULL; // initialize the list
 
 // 	while (++i < 10)  // Use a loop to create new nodes
 // 	{
@@ -170,6 +175,6 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void*))
 // 		ft_lstadd_front(&lst, ft_lstnew((void *)content));  // Add the new node to the front of the list
 // 	}
 // 	printf("List size: %d\n", ft_lstsize(lst));
-// 	print_list(lst);
+// 	prins_list(lst);
 // 	ft_lstclear(&lst);  // Free all nodes and their content
 // }

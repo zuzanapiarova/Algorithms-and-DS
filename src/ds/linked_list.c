@@ -86,9 +86,10 @@ void print_list(s_list *head)
 
 	while (current)
 	{
-		printf("%d\n", *(int *)(current->content));
+		printf("%d ", *(int *)(current->content));
 		current = current->next;
 	}
+	printf("\n");
 }
 
 void	ft_lstdelone(s_list *lst, void (*del)(void*))

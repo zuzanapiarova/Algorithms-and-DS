@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 // SINGLY LINKED LIST ---------------------------------------------------------
 
@@ -59,6 +60,11 @@ void inorder_traversal(treenode *root);
 void postorder_traversal(treenode *root);
 void breadth_first_traversal(treenode *root);
 
-// ALGORITHMS -------------------------------------------------------------------
+// ALGORITHMS --------------------------------------------------------------------
+
+int linear_search(s_list *lst, void *el);
+
+// UTILS -------------------------------------------------------------------------
+bool check_ordered(s_list *lst);
 
 #endif

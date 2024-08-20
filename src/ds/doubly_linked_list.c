@@ -25,7 +25,6 @@ d_list *dlst_create_new(void *content)
 	}
 	else
 		return NULL;
-
 	return (node);
 }
 

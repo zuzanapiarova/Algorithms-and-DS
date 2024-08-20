@@ -19,11 +19,11 @@ $(NAME): $(OBJS)
 allc: all clean
 
 clean:
-	rm -f $(OBJS)
-	rm -f *.so
+	@rm -f $(OBJS)
+	@rm -f *.so
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 re: fclean all
 

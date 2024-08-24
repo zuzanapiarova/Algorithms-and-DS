@@ -78,4 +78,75 @@ int linear_search(s_list *lst, void *el)
 // 	ft_lstclear(&lst);  // Free all nodes and their content
 // }
 
+s_list	*get_nth_element(s_list *lst, int pos)
+{
+	if (!lst || pos <= 0)
+		return (NULL);
+	while (lst->next != NULL && pos > 1)
+	{
+		lst = lst->next;
+		pos--;
+	}
+	return (lst);
+}
+
 // BINARY SEARCH
+// @param lst pointer to the head of singly linked list
+// @param el pointer to the value being searched for
+// @returns position(starting with 1) of the element searched for or -1 in case it is not found or if the list is not ordered
+s_list *binary_search(s_list *lst, void *el)
+{
+	s_list *mid;
+	int size;
+
+	if (!el || !lst || !check_ordered(lst) || *(int *)el > *(int *)ft_lstlast(lst)->content)
+		return NULL;
+	print_list(lst);
+	size = ft_lstsize(lst);
+	printf("size: %d\n", size);
+	// if size is even, we choose the middle element to be the one closer to left eg.  size = 6, middle is 3
+	if (size % 2 == 0)
+		size = size / 2;
+	else
+	{
+	// if list size is odd, the middle is going to be exactly the middle element, eg. size = 7, middle = 4 (3 numbers to top, 3 to zero)
+		size -= 1;
+		size =  size / 2;
+		size = size + 1;
+	}
+	printf("new size: %d\n", size);
+
+	mid = get_nth_element(lst, size);
+	printf("value of mid: %d\n", *(int *)mid->content);
+
+	if (*(int *)mid->content < *(int *)el && *(int *)mid->next->content > *(int *)el)
+	{
+		printf("Value not found. Reached element bigger than value searched for.\n");
+		return NULL;
+	}
+	else if (*(int *)mid->content == *(int *)el)
+	{
+		printf("Found at mid: %d.\n", *(int *)mid->content);
+		return mid;
+	}
+	else if (*(int *)mid->content >= *(int *)el)
+	{
+		printf("El is smaller than mid %d\n", *(int *)mid->content);
+		ft_lstclear(&mid->next);
+		mid = binary_search(lst, el);
+	}
+	else if (*(int *)mid->content <= *(int *)el)
+	{
+		printf("El is bigger than mid %d\n", *(int *)mid->content);
+		// if there is list of size 2 left, it always sets the mid to the smaller element and is thus looped infinitely, following code handles this
+		if (mid->next->next == NULL)
+		{
+			if (*(int *)mid->next->content == *(int *)el)
+				mid = mid->next;
+		}
+		*lst = *mid;
+		// TODO: free list items before the mid element that is the new beginning of the list
+		mid = binary_search(lst, el);
+	}
+	return mid;
+}

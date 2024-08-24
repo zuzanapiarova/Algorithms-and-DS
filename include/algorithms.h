@@ -63,8 +63,10 @@ void breadth_first_traversal(treenode *root);
 // ALGORITHMS --------------------------------------------------------------------
 
 int linear_search(s_list *lst, void *el);
+s_list *binary_search(s_list *lst, void *el);
 
 // UTILS -------------------------------------------------------------------------
 bool check_ordered(s_list *lst);
+s_list	*get_nth_element(s_list *lst, int pos);
 
 #endif

@@ -22,7 +22,11 @@
 
 ### SORTING ALGORITHMS
 1. INSERTION SORT  ✅
-2. BUBBLE SORT  ❌
+2. BUBBLE SORT  ✅
 3. SELECTION SORT  ❌
 4. MERGE SORT  ❌
 5. QUICKSORT  ❌
+
+
+// TODO: now we are passing void pointers for the content of the nodes, which is good, but we handle their comparison as integers only
+// so I should add additional parameter to the algorithms that is the pointer to a compare method of data type that user wants to handle

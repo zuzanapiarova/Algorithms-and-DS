@@ -65,9 +65,12 @@ void	ft_dlstclear(d_list **head);
 int linear_search(s_list *lst, void *el);
 s_list *binary_search(s_list *lst, void *el);
 int insertion_sort(s_list **head);
+int selection_sort(s_list **head);
+int bubble_sort(s_list **head);
 
 // UTILS -------------------------------------------------------------------------
 bool check_ordered(s_list *lst);
 s_list	*get_nth_element(s_list *lst, int pos);
+void swap_adjacent(s_list **head, s_list *prev, s_list *current);
 
 #endif

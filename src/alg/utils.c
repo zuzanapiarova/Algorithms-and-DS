@@ -25,3 +25,18 @@ s_list	*get_nth_element(s_list *lst, int pos)
 	return (lst);
 }
 
+void swap_adjacent(s_list **head, s_list *prev, s_list *current)
+{
+	s_list *next_node;
+
+	if (!current || !current->next)
+		return;
+	next_node = current->next;
+	if (prev)
+		prev->next = next_node; // move prev one node upwards
+	else
+		*head = next_node; // if there's no previous node, update the head
+	// swap current and next_node
+	current->next = next_node->next;
+	next_node->next = current;
+}

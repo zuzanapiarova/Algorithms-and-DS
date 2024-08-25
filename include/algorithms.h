@@ -6,6 +6,24 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+// BINARY TREE -----------------------------------------------------------------
+
+typedef struct	treenode
+{
+	int value;
+	struct treenode *left; // left child
+	struct treenode *right; // right child
+}				treenode;
+
+treenode *create_node(int value);
+treenode *fill_tree(void);
+void free_tree(treenode *root);
+
+void preorder_traversal(treenode *root);
+void inorder_traversal(treenode *root);
+void postorder_traversal(treenode *root);
+void breadth_first_traversal(treenode *root);
+
 // SINGLY LINKED LIST ---------------------------------------------------------
 
 typedef struct s_list
@@ -42,28 +60,11 @@ void print_dlist_reverse(d_list *head);
 int	ft_dlstsize(d_list *lst);
 void	ft_dlstclear(d_list **head);
 
-// BINARY TREE ------------------------------------------------------------------
-
-typedef struct	treenode
-{
-	int value;
-	struct treenode *left; // left child
-	struct treenode *right; // right child
-}				treenode;
-
-treenode *create_node(int value);
-treenode *fill_tree(void);
-void free_tree(treenode *root);
-
-void preorder_traversal(treenode *root);
-void inorder_traversal(treenode *root);
-void postorder_traversal(treenode *root);
-void breadth_first_traversal(treenode *root);
-
-// ALGORITHMS --------------------------------------------------------------------
+// LIST ALGORITHMS ---------------------------------------------------------------
 
 int linear_search(s_list *lst, void *el);
 s_list *binary_search(s_list *lst, void *el);
+int insertion_sort(s_list **head);
 
 // UTILS -------------------------------------------------------------------------
 bool check_ordered(s_list *lst);

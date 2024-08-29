@@ -72,5 +72,6 @@ int bubble_sort(s_list **head);
 bool check_ordered(s_list *lst);
 s_list	*get_nth_element(s_list *lst, int pos);
 void swap_adjacent(s_list **head, s_list *prev, s_list *current);
+void swap_nodes(s_list** head_ref, s_list* X, s_list* Y);
 
 #endif

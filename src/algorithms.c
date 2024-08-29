@@ -12,7 +12,7 @@ int main(void)
 		ft_lstclear(&lst);
 		return 1;
 	}
-	*c1 = 5;
+	*c1 = 300;
 	ft_lstadd_back(&lst, ft_lstnew((void *)c1));
 
 	c2 = malloc(sizeof(int));
@@ -57,14 +57,14 @@ int main(void)
 		ft_lstclear(&lst);
 		return 1;
 	}
-	*c6 = 1;
+	*c6 = 200;
 	ft_lstadd_back(&lst, ft_lstnew((void *)c6));
 
 	// print list
 	printf("List at start: ");
 	print_list(lst);
 	// perform sorting
-	bubble_sort(&lst);
+	selection_sort(&lst);
 	printf("List at end: ");
 	print_list(lst);
 	ft_lstclear(&lst);  // Free all nodes and their content
